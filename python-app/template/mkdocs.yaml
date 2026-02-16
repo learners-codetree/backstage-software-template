@@ -1,0 +1,11 @@
+site_name: '${{ values.app_name }} API Documentation'
+site_description: 'Main documentation for ${{ values.app_name }} APIs'
+repo_url: https://github.com/learners-codetree/${{ values.app_name }}
+edit_uri: edit/main/docs
+
+plugins:
+  - techdocs-core
+
+nav:
+  - Overview:
+      - Getting Started: 'docs/index.md'
