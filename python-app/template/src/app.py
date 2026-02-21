@@ -1,19 +1,21 @@
 from flask import Flask, jsonify
 import datetime
-# import socket
+import socket
 
 app = Flask(__name__)
 
-@app.route('/api/v1/details')
+@app.route('/api/v1/info')
 
-def details():
+def info():
 #    return '<h1>Hello World</h1>'
     return jsonify({
         'message': 'hello_new_world',
-#        'hostname': socket.gethostname(),
+        'hostname': socket.gethostname(),
         'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        'real_hostname': 'newserver'
-        'env': '${{ values.app_env }}'
+        'real_hostname': 'newserver',
+        'deployed_on': 'kubernetes',
+        'env': '${{ values.app_env }}',
+        'app_name': '${{ values.app_name }}'
     })
 
 @app.route('/api/v1/health')
