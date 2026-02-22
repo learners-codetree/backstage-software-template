@@ -13,7 +13,6 @@ jobs:
     steps:
     
       - name: Shorten commit hash
-        shell: bash
         id: vars
         run: echo "SHORT_SHA=${GITHUB_SHA::6}" >> $GITHUB_OUTPUT
       -
@@ -29,7 +28,7 @@ jobs:
           push: true
           tags: codetreelearners/${{ values.app_name }}:${{'${{ steps.vars.outputs.SHORT_SHA }}'}}
     outputs:
-      IMAGE_TAG: ${{ steps.vars.outputs.SHORT_SHA }}
+      IMAGE_TAG: ${{ '${{ steps.vars.outputs.SHORT_SHA }}' }}
 
   cd:
     needs: ci
