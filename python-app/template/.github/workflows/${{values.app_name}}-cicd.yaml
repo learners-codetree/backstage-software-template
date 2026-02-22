@@ -39,14 +39,14 @@ jobs:
       - name: Modify values.yaml with new image tag
         shell: bash
         run: |
-          echo ${{ needs.ci.outputs.IMAGE_TAG }}
+          echo ${{ '${{ needs.ci.outputs.IMAGE_TAG }}' }}
           sudo apt-get update && sudo apt-get install -y yq
-          yq -Yi '.image.tag = "${{ needs.ci.outputs.IMAGE_TAG }}"' charts/${{ values.app_name }}/values-${{ values.app_env }}.yaml
+          yq -Yi '.image.tag = "${{ '${{ needs.ci.outputs.IMAGE_TAG }}' }}"' charts/${{ values.app_name }}/values-${{ values.app_env }}.yaml
 
       - name: Commit and push changes to values.yaml
         uses: EndBug/add-and-commit@v9
         with:
-          message: "Update values.yaml with image tag to ${{ needs.ci.outputs.IMAGE_TAG }}"
+          message: "Update values.yaml with image tag to ${{ '${{ needs.ci.outputs.IMAGE_TAG }}' }}"
 
       - name: Install ArgoCD CLI
         run: |
