@@ -13,6 +13,7 @@ jobs:
     steps:
     
       - name: Shorten commit hash
+        shell: bash
         id: vars
         run: echo "SHORT_SHA=${GITHUB_SHA::6}" >> $GITHUB_OUTPUT
       -
