@@ -5,7 +5,7 @@ metadata:
   description: A python hello world application named ${{ values.app_name }} running in ${{ values.app_env }} environment
   # Example for optional annotations
   annotations:
-    github.com/project-slug: learners-codetree/${{ values.app_name }}
+    github.com/project-slug: learners-code-tree/${{ values.app_name }}
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
