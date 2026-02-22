@@ -54,6 +54,23 @@ jobs:
           sudo chmod +x argocd
           sudo mv argocd /usr/local/bin/
 
+      - name: Argocd repo add
+        shell: bash
+        run: |
+          repo="https://github.com/learners-code-tree/${{ values.app_name }}.git"
+          # Check if the repo is already added, if not add it
+          argocd repo list | grep -q $repo || argocd repo add $repo
+          # check if the app is already added, if not add it
+          argocd app get ${{ values.app_name }} || argocd app create ${{ values.app_name }} \
+            --repo $repo \
+            --path charts/${{ values.app_name }} \
+            --dest-server https://kubernetes.default.svc \
+            --dest-namespace ${{ values.app_env }} \
+            --values values-${{ values.app_env }}.yaml \
+            --revision main \
+            --sync-policy manual \
+            --sync-options CreateNamespace=true
+
       - name: Argocd app sync
         shell: bash
         run: |
@@ -63,3 +80,4 @@ jobs:
             --username admin \
             --password ${{'${{ secrets.ARGOCD_PASSWORD }}'}}
           argocd app sync ${{ values.app_name }}
+          argocd app wait ${{ values.app_name }} --timeout 180
